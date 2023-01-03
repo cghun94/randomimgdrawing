@@ -144,7 +144,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div style={{backgroundColor: "black", width: "100%", height: "100vh"}}>
       <div
         style={{
           height: 800,
@@ -157,7 +157,7 @@ const Home = () => {
           style={{
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "#999",
+            // backgroundColor: "#999",
             width: "90%",
             height: "80%",
           }}
@@ -238,16 +238,16 @@ const Home = () => {
         <button
           onClick={handleStart}
           style={{
-            width: "30%",
-            height: 50,
-            backgroundColor: "black",
-            color: "white",
+            width: "20%",
+            height: 60,
+            backgroundColor: "white",
+            color: "black",
           }}
         >
           Start
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
