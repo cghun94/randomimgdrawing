@@ -125,11 +125,11 @@ const Home = () => {
 
   const winPrizeIndex = Math.floor(Math.random() * 5);
   const winPantsIndex = Math.floor(Math.random() * 4);
-  const winAccessoryIndex = Math.floor(Math.random() * 6);
+  const winAccessoryIndex = Math.floor(Math.random() * 7);
 
   const topIndex = prizes.length * 4 + winPrizeIndex;
   const pantsIndex = pants.length * 4 + winPantsIndex;
-  const accessoryIndex = prizes.length * 4 + winPrizeIndex;
+  const accessoryIndex = accessory.length * 4 + winAccessoryIndex;
 
   console.log("topIndex", topIndex);
   console.log("pantsIndex", pantsIndex);
