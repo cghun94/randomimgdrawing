@@ -1,120 +1,253 @@
-import React, {Component} from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import {useState} from "react";
 
+import RoulettePro from "react-roulette-pro";
+import "./Home.css";
 import background from "../images/background.jpg";
 import top1 from "../images/top/1.bmp";
 import top2 from "../images/top/2.bmp";
 import top3 from "../images/top/3.bmp";
 import top4 from "../images/top/4.bmp";
 import top5 from "../images/top/5.png";
+import pants1 from "../images/pants/1.bmp";
+import pants2 from "../images/pants/2.bmp";
+import pants3 from "../images/pants/3.bmp";
+import pants4 from "../images/pants/4.bmp";
+import accessory1 from "../images/accessory/1.jpg";
+import accessory2 from "../images/accessory/2.bmp";
+import accessory3 from "../images/accessory/3.bmp";
+import accessory4 from "../images/accessory/4.bmp";
+import accessory5 from "../images/accessory/5.bmp";
+import accessory6 from "../images/accessory/6.bmp";
+import accessory7 from "../images/accessory/7.jpg";
+const prizes = [
+  {
+    image: top1,
+  },
+  {
+    image: top2,
+  },
+  {
+    image: top3,
+  },
+  {
+    image: top4,
+  },
+  {
+    image: top5,
+  },
+];
+
+const pants = [
+  {
+    image: pants1,
+  },
+  {
+    image: pants2,
+  },
+  {
+    image: pants3,
+  },
+  {
+    image: pants4,
+  },
+];
+
+const accessory = [
+  {
+    image: accessory1,
+  },
+  {
+    image: accessory2,
+  },
+  {
+    image: accessory3,
+  },
+  {
+    image: accessory4,
+  },
+  {
+    image: accessory5,
+  },
+  {
+    image: accessory6,
+  },
+  {
+    image: accessory7,
+  },
+];
+const reproductionArray = (array = [], length = 0) => [
+  ...Array(length)
+    .fill("_")
+    .map(() => array[Math.floor(Math.random() * array.length)]),
+];
+
+const reproducedPrizeList = [
+  ...prizes,
+  ...reproductionArray(prizes, prizes.length * 3),
+  ...prizes,
+  ...reproductionArray(prizes, prizes.length),
+];
+
+const reproducedPantsList = [
+  ...pants,
+  ...reproductionArray(pants, pants.length * 3),
+  ...pants,
+  ...reproductionArray(pants, pants.length),
+];
+
+const reproducedAccessoryList = [
+  ...accessory,
+  ...reproductionArray(accessory, accessory.length * 3),
+  ...accessory,
+  ...reproductionArray(accessory, accessory.length),
+];
+
+const generateId = () =>
+  `${Date.now().toString(36)}-${Math.random().toString(36).substring(2)}`;
+
+const prizeList = reproducedPrizeList.map((prize) => ({
+  ...prize,
+  id: generateId(),
+}));
+
+const pantsList = reproducedPantsList.map((pants) => ({
+  ...pants,
+  id: generateId(),
+}));
+
+const accessoryList = reproducedAccessoryList.map((accessory) => ({
+  ...accessory,
+  id: generateId(),
+}));
 
 const Home = () => {
-  const settings = {
-    dots: false, // 개수 표시 점
-    infinite: true, // 무한 캐러셀
-    speed: 400, // 다음 컨텐츠 까지의 속도
-    slidesToShow: 1, // 화면에 보이는 컨텐츠 수
-    slidesToScroll: 1, // 스크롤 시 넘어가는 컨텐츠 수
-    centerMode: true, // 현재 컨텐츠 가운데 정렬
-    centerPadding: "10px", // 중앙 컨텐츠 padding 값
-    autoplay: true, // 자동 캐러셀
-    autoplaySpeed: 1000, // 자동 캐러셀 속도
-    draggable: false, // 드래그
-    fade: false, // 사라졌다 나타나는 효과
-    arrows: false, // 좌,우 버튼
-    vertical: true, // 세로 캐러셀
-    initialSlide: 1, // 첫 컨텐츠 번호
-    pauseOnFocus: true, // focus시 정지
-    pauseOnHover: true, // hover시 정지
+  const [start, setStart] = useState(false);
+
+  const winPrizeIndex = Math.floor(Math.random() * 5);
+  const winPantsIndex = Math.floor(Math.random() * 4);
+  const winAccessoryIndex = Math.floor(Math.random() * 6);
+
+  const topIndex = prizes.length * 4 + winPrizeIndex;
+  const pantsIndex = pants.length * 4 + winPantsIndex;
+  const accessoryIndex = prizes.length * 4 + winPrizeIndex;
+
+  console.log("topIndex", topIndex);
+  console.log("pantsIndex", pantsIndex);
+  console.log("accessoryIndex", accessoryIndex);
+
+  const handleStart = () => {
+    setStart(!start);
+  };
+
+  const handlePrizeDefined = (item) => {
+    console.log("🥳 Prize defined! 🥳", item);
   };
 
   return (
-    <div
-      style={{
-        height: 800,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <>
       <div
         style={{
+          height: 800,
           display: "flex",
           justifyContent: "center",
-          backgroundColor: "#999",
-          width: "90%",
-          height: "80%",
+          alignItems: "center",
         }}
       >
-        <div style={{position: "relative"}}>
-          {" "}
-          <img src={background} alt="background" style={{}} />
-          <div
-            style={{
-              position: "absolute",
-              top: "38%",
-              left: "10%",
-              // backgroundColor: "black",
-              width: "22.5%",
-              height: "40%",
-            }}
-          >
-            {/* <img
-              src={top1}
-              alt="background"
-              style={{width: "100%", height: "100%"}}
-            /> */}
-
-            <Slider {...settings}>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "#999",
+            width: "90%",
+            height: "80%",
+          }}
+        >
+          <div style={{position: "relative"}}>
+            {" "}
+            <img src={background} alt="background" style={{}} />
+            <div
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "10%",
+                // backgroundColor: "black",
+                width: "22.5%",
+                height: "40%",
+              }}
+            >
+              <div style={{height: 180, width: "100%", overflowY: "hidden"}}>
+                <RoulettePro
+                  type={"vertical"}
+                  prizes={prizeList}
+                  prizeIndex={topIndex}
+                  spinningTime={2}
+                  start={start}
+                  onPrizeDefined={handlePrizeDefined}
                 />
               </div>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
+            </div>
+            {/*  */}
+            <div
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "39%",
+                // backgroundColor: "black",
+                width: "22.5%",
+                height: "40%",
+              }}
+            >
+              <div style={{height: 180, width: "100%", overflowY: "hidden"}}>
+                <RoulettePro
+                  type={"vertical"}
+                  prizes={pantsList}
+                  prizeIndex={pantsIndex}
+                  spinningTime={2}
+                  start={start}
+                  onPrizeDefined={handlePrizeDefined}
                 />
               </div>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
+            </div>
+            {/*  */}
+            <div
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "68%",
+                // backgroundColor: "black",
+                width: "22.5%",
+                height: "40%",
+              }}
+            >
+              <div style={{height: 180, width: "100%", overflowY: "hidden"}}>
+                <RoulettePro
+                  type={"vertical"}
+                  prizes={accessoryList}
+                  prizeIndex={accessoryIndex}
+                  spinningTime={2}
+                  start={start}
+                  onPrizeDefined={handlePrizeDefined}
                 />
               </div>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
-                />
-              </div>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
-                />
-              </div>
-              <div>
-                <img
-                  src={top1}
-                  alt="background"
-                  style={{width: "100%", height: "100%"}}
-                />
-              </div>
-            </Slider>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <button
+          onClick={handleStart}
+          style={{
+            width: "30%",
+            height: 50,
+            backgroundColor: "black",
+            color: "white",
+          }}
+        >
+          Start
+        </button>
+      </div>
+    </>
   );
 };
 
